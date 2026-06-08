@@ -1,0 +1,21 @@
+select
+    city,
+    uf,
+    lat,
+    lon,
+    country,
+    to_timestamp(forecast_at_unix) as forecast_at,
+    weather_main,
+    weather_description,
+    temp_k::numeric          as temp_k,
+    feels_like_k::numeric    as feels_like_k,
+    temp_min_k::numeric      as temp_min_k,
+    temp_max_k::numeric      as temp_max_k,
+    pressure::int            as pressure,
+    humidity::int            as humidity,
+    wind_speed::numeric      as wind_speed,
+    wind_deg::int            as wind_deg,
+    clouds_all::int          as clouds_all,
+    pop::numeric             as pop,
+    _dlt_load_id
+from {{ source('raw', 'forecast') }}

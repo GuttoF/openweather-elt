@@ -1,0 +1,12 @@
+openweather:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('DW_HOST', 'localhost') }}"
+      port: "{{ env_var('DW_PORT', '5433') | int }}"
+      user: "{{ env_var('DW_USER', 'weather') }}"
+      password: "{{ env_var('DW_PASSWORD', 'weather') }}"
+      dbname: "{{ env_var('DW_DB', 'weather') }}"
+      schema: public
+      threads: 4
