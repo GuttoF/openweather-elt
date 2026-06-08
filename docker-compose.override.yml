@@ -1,0 +1,28 @@
+services:
+  postgres-dw:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${DW_USER:-weather}
+      POSTGRES_PASSWORD: ${DW_PASSWORD:-weather}
+      POSTGRES_DB: ${DW_DB:-weather}
+    ports:
+      # Exposto no host em 5433 pra rodar dlt/dbt local via uv (5432 ja eh
+      - "${DW_PORT_HOST:-5433}:5432"
+    volumes:
+      - postgres-dw-data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U ${DW_USER:-weather} -d ${DW_DB:-weather}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  adminer:
+    image: adminer:4
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres-dw
+
+volumes:
+  postgres-dw-data:

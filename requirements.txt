@@ -1,1 +1,4 @@
 # Astro Runtime includes the following pre-installed providers packages: https://www.astronomer.io/docs/astro/runtime-image-architecture#provider-packages
+dbt-postgres==1.10.0
+dlt[postgres]==1.27.2
+requests==2.34.2
