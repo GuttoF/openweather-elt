@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: dim_city
+    columns:
+      - name: city_sk
+        description: "Chave substituta da cidade."
+        data_tests: [not_null, unique]
+
+  - name: dim_datetime
+    columns:
+      - name: datetime_sk
+        description: "Chave substituta do instante (AAAAMMDDHH)."
+        data_tests: [not_null, unique]
+
+  - name: fct_current_weather
+    columns:
+      - name: city_sk
+        description: "FK -> dim_city."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_city')
+                field: city_sk
+      - name: datetime_sk
+        description: "FK -> dim_datetime."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_datetime')
+                field: datetime_sk
+
+  - name: fct_forecast
+    columns:
+      - name: city_sk
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_city')
+                field: city_sk
+      - name: datetime_sk
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_datetime')
+                field: datetime_sk

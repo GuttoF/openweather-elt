@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw_openweather
+    description: "Dados crus carregados pelo dlt direto da API OpenWeather."
+    tables:
+      - name: current_weather
+        description: "Clima atual por capital, uma linha por coleta (append)."
+      - name: forecast
+        description: "Previsao 5d/3h por capital, uma linha por ponto previsto."
